@@ -11,5 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31
-      - run: nix flake check
-      - run: nix build .
+      # Eval-only: full builds fetch upstream CLI binaries that 404 once a pin
+      # goes stale (the updater's job, not a per-PR gate). This catches flake
+      # evaluation errors without depending on external mirrors being live.
+      - run: nix flake check --no-build
