@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # No "nix" ecosystem: the bespoke updater (update-flake.yml) owns flake.lock
+  # and per-package version/hash bumps, including fetched binaries Dependabot
+  # cannot track. Adding it here would race on flake.lock.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
